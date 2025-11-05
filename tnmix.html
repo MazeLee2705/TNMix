@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn tạo đề trộn - TNMix App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/img/logo.png">
+    <style>
+        :root {
+            --primary: #ff4757;
+            --primary-light: #ff6b81;
+            --secondary: #ff9f43;
+            --secondary-light: #ffbe76;
+            --light: #ffffff;
+            --dark: #2f3542;
+            --gray: #747d8c;
+            --border-radius: 10px;
+            --box-shadow: 0 8px 20px rgba(255, 71, 87, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f5 0%, #fff9e6 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 70px 0 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,192C672,181,768,139,864,138.7C960,139,1056,181,1152,197.3C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo i {
+            background: white;
+            color: var(--primary);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            margin: 10px;
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        section {
+            padding: 90px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 35px 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+            border-top: 5px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 71, 87, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        /* Instructions */
+        .instructions {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+
+        .instruction-tabs {
+            display: flex;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 18px;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .tab-button.active {
+            color: white;
+            background: rgba(12, 104, 146, 0.15);
+            border-bottom: 3px solid white;
+        }
+
+        .tab-content {
+            padding: 40px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .instruction-step {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f1f2f6;
+        }
+
+        .instruction-step:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            margin-right: 15px;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(255, 71, 87, 0.3);
+        }
+
+        .instruction-step h3 {
+            display: inline-block;
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+
+        .example-box {
+            background: #fff9f9;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .example-box strong {
+            color: var(--primary);
+        }
+
+        /* Download */
+        .download-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .download-section .section-title h2 {
+            color: white;
+        }
+
+        .download-section .section-title h2::after {
+            background: white;
+        }
+
+        .app-badge {
+            display: inline-block;
+            margin: 25px;
+            transition: var(--transition);
+        }
+
+        .app-badge img {
+            height: 70px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-badge:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 25px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            color: #dfe4ea;
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .copyright {
+            color: #a4b0be;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .logo {
+                font-size: 2.2rem;
+            }
+
+            .logo i {
+                width: 60px;
+                height: 60px;
+            }
+
+            .instruction-tabs {
+                flex-direction: column;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-content {
+                padding: 25px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-random"></i>
+                    <span>TNMix</span>
+                </div>
+                <h1>Hướng dẫn tạo đề trộn</h1>
+                <p class="subtitle">Tạo đề thi trắc nghiệm dễ dàng với ứng dụng TNMix. Hướng dẫn chi tiết cách định dạng
+                    đề thi để trộn câu hỏi và đáp án một cách hiệu quả.</p>
+                <a href="#instructions" class="cta-button">Bắt đầu ngay</a>
+                <a href="#download" class="cta-button secondary">Tải ứng dụng</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tính năng nổi bật</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Xác định phần đề thi</h3>
+                    <p>Dễ dàng xác định các phần trong đề thi với định dạng đơn giản.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>Nhận diện câu hỏi</h3>
+                    <p>Tự động nhận diện câu hỏi nhanh chóng, chính xác</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-list-ol"></i>
+                    </div>
+                    <h3>Xác định đáp án</h3>
+                    <p>Nhận diện các phương án trả lời A, B, C, D hoặc a), b), c), d).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Đánh dấu đáp án đúng</h3>
+                    <p>Xác định đáp án đúng đơn giản bằng cách gạch chân hoặc tô màu khác loại. Dễ dàng chỉnh sửa đáp án
+                        đúng ngay trong ứng dụng</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <h3>Trộn linh hoạt</h3>
+                    <p>Trộn đa dạng đề với đề cũ toàn câu hỏi trắc nghiệm, đề mới 2025, đề Tiếng Anh. Tuỳ chọn trộn câu
+                        hỏi, đáp án hoặc cả hai với các cấp độ khác nhau.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Hỗ trợ Tiếng Anh</h3>
+                    <p>Hỗ trợ định dạng trộn đề thi Tiếng Anh.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructions -->
+    <section id="instructions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hướng dẫn tạo đề</h2>
+            </div>
+            <div class="instructions">
+                <div class="instruction-tabs">
+                    <button class="tab-button active" data-tab="tab1">Xác định phần</button>
+                    <button class="tab-button" data-tab="tab2">Câu hỏi & Đáp án</button>
+                    <button class="tab-button" data-tab="tab3">Đáp án đúng</button>
+                    <button class="tab-button" data-tab="tab4">Tiếng Anh</button>
+                </div>
+
+                <div class="tab-content active" id="tab1">
+                    <div class="instruction-step">
+                        <h3><span class="step-number">1</span> Định dạng PHẦN trong đề thi</h3>
+                        <p>Sử dụng định dạng: <strong>"PHẦN" + "khoảng cách" + "số phần" + "khoảng cách" + "tên
+                                phần"</strong></p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ nội dung yêu cầu ở đầu mỗi phần chỉ cần chứa những nội dung phù hợp với
+                                    định
+                                    dạng như:</strong></p>
+                            <p>PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn</p>
+                            <p>PHẦN II. Câu trắc nghiệm đúng sai</p>
+                            <p>Phần III. Câu trắc nghiệm trả lời ngắn</p>
+                            <p>Phần IV. Tự luận</p>
+                            <p>PHẦN 1. Trắc nghiệm nhiều</p>
+                            <p>PHẦN 2. Trắc nghiệm đúng sai</p>
+                            <p>PHẦN III. Trả lời ngắn</p>
+                            <p>PHẦN 1. Trắc nghiệm nhiều</p>
+                        </div>
+                    </div>
+                    <div class="instruction-step">
+                        <h3><span class="step-number">2</span> Đề không chia làm các PHẦN</h3>
+                        <p>Với các đề trắc nghiệm cũ, không chia tách phần mà chỉ có các câu trắc nghiệm bình thường,
+                            thầy cô không
+                            cần xác định phần mà chỉ cần xác định câu hỏi, đáp án và đáp án đúng rồi tiến hành sử dụng
+                            TNMix trộn đề như bình thường.</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab2">
+                    <div class="instruction-step">
+                        <h3><span class="step-number">1</span> Xác định câu hỏi</h3>
+                        <p>Sử dụng định dạng: <strong>"Câu" + "khoảng trắng" + "số câu." + "khoảng trắng"</strong></p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ:</strong></p>
+                            <p>Câu 1. Nội dung câu hỏi...</p>
+                            <p>Câu 2: Nội dung câu hỏi...</p>
+                        </div>
+                    </div>
+                    <div class="instruction-step">
+                        <h3><span class="step-number">2</span> Xác định đáp án</h3>
+                        <p><strong>Phần nhiều phương án lựa chọn:</strong> Sử dụng chữ cái in hoa + dấu chấm + khoảng
+                            trắng
+                        </p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ:</strong></p>
+                            <p> A. Nội dung đáp án thứ nhất...</p>
+                            <p> B. Nội dung đáp án thứ hai...</p>
+                        </div>
+                        <p><strong>Phần đúng sai:</strong> Sử dụng chữ cái thường + dấu ngoặc đơn + khoảng trắng</p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ:</strong></p>
+                            <p> a) Nhận định 1...</p>
+                            <p> b) Nhận định 2...</p>
+                            <p> c) Nhận định 3...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab3">
+                    <div class="instruction-step">
+                        <h3><span class="step-number">1</span> Đánh dấu đáp án đúng</h3>
+                        <p><strong>Phần I (Nhiều phương án lựa chọn):</strong> Gạch chân hoặc tô màu khác loại đáp án
+                            đúng</p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ:</strong></p>
+                            <p>A. <span style="text-decoration: underline;">B.</span> C. D.</p>
+                            <p>A. B. <span style="text-decoration: underline;">C</span>. D.</p>
+                            <p>A. <span style="color: #ff4757; font-weight: bold;">B. </span> C. D.</p>
+                            <p>A. B. C. <span style="color: #0728e6; font-weight: bold;">D. </span></p>
+                        </div>
+                    </div>
+                    <div class="instruction-step">
+                        <h3><span class="step-number">2</span> Phần II (Đúng sai)</h3>
+                        <p>Chỉ gạch chân, không tô màu để xác định đáp án đúng</p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ:</strong></p>
+                            <p><span style="text-decoration: underline;">a)</span> b) c) <span
+                                    style="text-decoration: underline;">d)</span></p>
+                        </div>
+                    </div>
+                    <div class="instruction-step">
+                        <h3><span class="step-number">3</span> Phần III (Trả lời ngắn hoặc tự luận có duy nhất một kết
+                            quả, đáp án)</h3>
+                        <p>Sử dụng chữ cái in hoa + dấu chấm + khoảng trắng để xác định kết quả đúng</p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ:</strong></p>
+                            <p>A. 22,4</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab4">
+                    <div class="instruction-step">
+                        <h3><span class="step-number">1</span> Đề thi Tiếng Anh</h3>
+                        <p>Sử dụng từ khoá "Question" thay vì "Câu" để xác định câu hỏi</p>
+                        <div class="example-box">
+                            <p><strong>Ví dụ:</strong></p>
+                            <p>Question 1. What is your name?</p>
+                            <p>Question 2: How old are you?</p>
+                        </div>
+                    </div>
+                    <div class="instruction-step">
+                        <h3><span class="step-number">2</span> Định dạng, xác định PHẦN</h3>
+                        <p>Đặt các thẻ &lt;g&gt; trước các phần trong đề. Một phần được định nghĩa là gồm Yêu cầu ở phía
+                            trên và danh sách câu hỏi phục vụ cho
+                            yêu cầu đó ở phía dưới.</p>
+                        <div class="example-box">
+                            <p></strong> Khi trộn thì vị trí các phần trong đề sẽ được hoán vị</p>
+                            <p>Nếu muốn giữ nguyên vị trí của phần nào đó thì thầy cô chỉ cần thêm dấu # ngay trước
+                                <strong>&lt;g&gt;</strong> ví dụ như: <strong>&lt;#g0&gt;</strong>,
+                                <strong>&lt;#g1&gt;</strong>, <strong>&lt;#g2&gt;</strong>, <strong>&lt;#g3&gt;</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="instruction-step">
+                        <h3><span class="step-number">3</span> Tính chất trộn các câu hỏi và đáp án trong 1 phần</h3>
+                        <p>Sử dụng số trong các thẻ &lt;g&gt; để xác định tính chất trộn cho các câu hỏi và đáp án trong
+                            phần:
+                        </p>
+                        <div class="example-box">
+                            <p><strong>&lt;g0&gt;</strong> : Không trộn các câu hỏi lẫn đáp án của mỗi câu hỏi trong
+                                phần</p>
+                            <p><strong>&lt;g1&gt;</strong> : Chỉ hoán vị vị trí các câu hỏi trong phần còn vị trí các
+                                đáp án
+                                của các câu hỏi sẽ giữ nguyên</p>
+                            <p><strong>&lt;g2&gt;</strong> : Chỉ hoán vị vị trí các đáp án, vị trí các câu hỏi trong
+                                phần sẽ giữ nguyên</p>
+                            <p><strong>&lt;g3&gt;</strong> : Hoán vị cả câu hỏi lẫn đáp án trong phần</p>
+                            <p><strong>&lt;#g0&gt;</strong> : Giữ nguyên vị trí phần trong đề + không trộn</p>
+                            <p><strong>&lt;#g1&gt;</strong> : Giữ nguyên vị trí phần trong đề + hoán vị các câu hỏi, giữ
+                                nguyên
+                                vị trí các đáp án trong câu hỏi</p>
+                            <p><strong>&lt;#g2&gt;</strong> : Giữ nguyên vị trí phần trong đề + hoán vị các đáp án trong
+                                câu hỏi,
+                                vị trí các câu hỏi trong phần được giữ nguyên</p>
+                            <p><strong>&lt;#g3&gt;</strong> : Giữ nguyên vị trí phần trong đề + hoán vị các câu hỏi và
+                                đáp án
+                                trong phần</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download -->
+    <section id="download" class="download-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tải ứng dụng TNMix</h2>
+            </div>
+            <p>Tải ứng dụng TNMix ngay dưới đây để trộn đề thi trắc nghiệm một cách dễ dàng và hiệu quả.</p>
+            <a href="https://play.google.com/store/apps/details?id=com.tnteam.tnmix" class="app-badge" target="_blank">
+                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/vi_badge_web_generic.png"
+                    alt="Tải trên Google Play">
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#features">Tính năng</a>
+                <a href="#instructions">Hướng dẫn</a>
+                <a href="#download">Tải ứng dụng</a>
+                <a href="https://play.google.com/store/apps/details?id=com.tnteam.tnmix" target="_blank">Google Play</a>
+            </div>
+            <p class="copyright">© 2025 TNMix App. Allrights reserved TNMaker.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabButtons = document.querySelectorAll('.tab-button');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
